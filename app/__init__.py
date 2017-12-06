@@ -6,7 +6,7 @@ app = Flask(__name__)
 api = Api(app)
 
 # init DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///persons.db'
 db = SQLAlchemy(app)
 
 # set default route. this will be used to serve the vue.js application

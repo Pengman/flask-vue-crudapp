@@ -81,7 +81,7 @@ class PeopleRoutes(Resource):
     def get(self):
       # get all people in DB
         people = Person.query.all()
-
+        print people
         # return array of serialized people
         people_json=[i.serialize() for i in people]
         return people_json

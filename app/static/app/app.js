@@ -1,77 +1,77 @@
-var NewPersonRow = Vue.extend({
-  components: {
-    datepicker : VueStrap.datepicker
-  },
-  props: {
-    person: Object,
-    state: {
-      type: String,
-      default: 'default'
-    }
-  },
-  created:function(){
-    this.initData();
-  },
-  methods: {
-    initData: function(){
-      this.person = {firstName: '', lastName:'', dateOfBirth:'', zipCode:''};
-      this.errorMessages = {firstName: '', lastName:'', dateOfBirth:'', zipCode:''};
-    },
-    // Manage component state. Used for default, edit, and deleting states
-    updateState: function(state){
-      this.state = state;
-    },
-    // send api request to actually update state
-    addPerson:function(){
-        this.updateState('loading');
-        // GET /someUrl
-        this.$http.post('/api/person', this.person).then((response) => {
-            // success callback
-            var newPerson = JSON.parse(response.body);
+// var NewPersonRow = Vue.extend({
+//   components: {
+//     datepicker : VueStrap.datepicker
+//   },
+//   props: {
+//     person: Object,
+//     state: {
+//       type: String,
+//       default: 'default'
+//     }
+//   },
+//   created:function(){
+//     this.initData();
+//   },
+//   methods: {
+//     initData: function(){
+//       this.person = {firstName: '', lastName:'', dateOfBirth:'', zipCode:''};
+//       this.errorMessages = {firstName: '', lastName:'', dateOfBirth:'', zipCode:''};
+//     },
+//     // Manage component state. Used for default, edit, and deleting states
+//     updateState: function(state){
+//       this.state = state;
+//     },
+//     // send api request to actually update state
+//     addPerson:function(){
+//         this.updateState('loading');
+//         // GET /someUrl
+//         this.$http.post('/api/person', this.person).then((response) => {
+//             // success callback
+//             var newPerson = JSON.parse(response.body);
 
-            // add new person to start of list
-            this.$dispatch('remove-person', newPerson)
+//             // add new person to start of list
+//             this.$dispatch('remove-person', newPerson)
 
-            this.initData();
-            // Turn of loading
-            this.updateState('default');
-        }, (response) => {
-          console.log(response)
-            // error callback
-            this.newPerson.loading = false;
-        });
-    }
-  },
-  template: ` <tr>
-                <form v-on:submit.prevent v-on:submit="addPerson()">
-                  <td >
+//             this.initData();
+//             // Turn of loading
+//             this.updateState('default');
+//         }, (response) => {
+//           console.log(response)
+//             // error callback
+//             this.newPerson.loading = false;
+//         });
+//     }
+//   },
+//   template: ` <tr>
+//                 <form v-on:submit.prevent v-on:submit="addPerson()">
+//                   <td >
 
-                  </td>
-                  <td >
-                    <input type="text" required class="form-control" v-model="person.firstName" placeholder="First Name">
-                    <div class="error-message" v-if="state == 'editing'"> {{ errorMessages.firstName }} </div>
-                  </td>
-                  <td >
-                    <input type="text" required class="form-control" v-model="person.lastName" placeholder="First Name">
-                    <div class="error-message" v-if="state == 'editing'"> {{ errorMessages.lastName }} </div>
-                  </td>
-                  <td >
-                    <datepicker :value.sync="person.dateOfBirth" ></datepicker>
-                    <div class="error-message" v-if="state == 'editing'"> {{ errorMessages.dateOfBirth }} </div>
-                  </td>
-                  <td >
-                    <input type="text" required class="form-control" v-model="person.zipCode" placeholder="Zp Code">
-                    <div class="error-message" v-if="state == 'editing'"> {{ errorMessages.zipCode }} </div>
-                  </td>
+//                   </td>
+//                   <td >
+//                     <input type="text" required class="form-control" v-model="person.firstName" placeholder="First Name">
+//                     <div class="error-message" v-if="state == 'editing'"> {{ errorMessages.firstName }} </div>
+//                   </td>
+//                   <td >
+//                     <input type="text" required class="form-control" v-model="person.lastName" placeholder="First Name">
+//                     <div class="error-message" v-if="state == 'editing'"> {{ errorMessages.lastName }} </div>
+//                   </td>
+//                   <td >
+//                     <datepicker :value.sync="person.dateOfBirth" ></datepicker>
+//                     <div class="error-message" v-if="state == 'editing'"> {{ errorMessages.dateOfBirth }} </div>
+//                   </td>
+//                   <td >
+//                     <input type="text" required class="form-control" v-model="person.zipCode" placeholder="Zp Code">
+//                     <div class="error-message" v-if="state == 'editing'"> {{ errorMessages.zipCode }} </div>
+//                   </td>
 
-                  <td v-if="state == 'default'">
-                    <button type="submit" class="btn btn-xs btn-success" v-bind:class="{ 'disabled': state == 'loading' }"  >
-                      Add <i v-if="state == 'loading'" class="glyphicon glyphicon-refresh spin"></i>
-                    </button>
-                  </td>
-                </form>
-              </tr>`
-})
+//                   <td v-if="state == 'default'">
+//                     <button type="submit" class="btn btn-xs btn-success" v-bind:class="{ 'disabled': state == 'loading' }"  >
+//                       Add <i v-if="state == 'loading'" class="glyphicon glyphicon-refresh spin"></i>
+//                     </button>
+//                   </td>
+//                 </form>
+//               </tr>`
+// })
 
 var PersonRow = Vue.extend({
   components: {
@@ -196,7 +196,7 @@ var vm = new Vue({
         // GET /someUrl
         this.$http.get('/api/person').then((response) => {
             // success callback
-          this.people = response.data;
+            this.people = JSON.parse( response.data );
         }, (response) => {
             // error callback
         });
